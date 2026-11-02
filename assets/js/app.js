@@ -6,6 +6,60 @@
   "use strict";
   document.documentElement.classList.add("js");
 
+  /* Nom de l'accueil : une lettre par span pour l'animation (avant tout le reste, même sans contenus) */
+  (function splitHeroName() {
+    var h1 = document.getElementById("hero-name");
+    if (!h1) return;
+    h1.setAttribute("aria-label", h1.textContent.replace(/\s+/g, " ").trim()); // lu en entier par les lecteurs d'écran
+    Array.prototype.forEach.call(h1.querySelectorAll(".h-in"), function (word, line) {
+      var text = word.textContent;
+      word.textContent = "";
+      word.setAttribute("aria-hidden", "true");
+      text.split("").forEach(function (ch, i) {
+        var s = document.createElement("span");
+        s.className = "char";
+        s.textContent = ch;
+        s.style.setProperty("--i", i);
+        s.style.setProperty("--l", line);
+        word.appendChild(s);
+      });
+    });
+
+    // Effet machine à écrire : les lettres apparaissent une à une derrière un curseur
+    var chars = h1.querySelectorAll(".char");
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      Array.prototype.forEach.call(chars, function (c) { c.classList.add("is-typed"); });
+      return;
+    }
+    h1.classList.add("is-typing");
+    var caret = document.createElement("span");
+    caret.className = "hero-caret";
+    caret.setAttribute("aria-hidden", "true");
+    var k = 0;
+    function type() {
+      var c = chars[k];
+      c.classList.add("is-typed");
+      c.parentNode.insertBefore(caret, c.nextSibling); // le curseur suit la dernière lettre
+      k++;
+      if (k >= chars.length) { // fin : le curseur clignote encore puis s'efface
+        setTimeout(function () { caret.classList.add("is-done"); h1.classList.remove("is-typing"); }, 2400);
+        return;
+      }
+      var newLine = chars[k].parentNode !== c.parentNode;
+      setTimeout(type, newLine ? 450 : 85 + Math.random() * 90); // rythme de frappe légèrement irrégulier
+    }
+    function start() {
+      chars[0].parentNode.insertBefore(caret, chars[0]);
+      setTimeout(type, 500);
+    }
+    // On écrit une fois l'écran de chargement disparu
+    var root = document.documentElement;
+    if (!root.classList.contains("is-loading")) start();
+    else new MutationObserver(function (m, obs) {
+      if (!root.classList.contains("is-loading")) { obs.disconnect(); start(); }
+    }).observe(root, { attributes: true, attributeFilter: ["class"] });
+  })();
+
   var C = window.CONTENT;
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var $ = function (s, r) { return (r || document).querySelector(s); };
