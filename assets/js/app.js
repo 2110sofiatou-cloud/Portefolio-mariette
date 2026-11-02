@@ -85,8 +85,11 @@
   /* ---------- Données de structure (contenus = clés i18n) ---------- */
   var EXPERTISE = [1, 2, 3, 4, 5];
   var PROJECTS = [
-    { id: "mypikine", n: 1, img: "assets/img/mypikine.jpg", // img : photo authentique (sinon emplacement « à fournir »)
-      docs: [{ src: "assets/img/mypikine-seance.jpg", key: "proj.1.doc1" }] }, // docs : rubrique « Photos & documents » du panneau
+    { id: "mypikine", n: 1, img: "assets/img/logo-mypikine.png", logo: true, // img : photo authentique (sinon emplacement « à fournir »)
+      docs: [ // docs : rubrique « Photos & documents » du panneau
+        { src: "assets/img/mypikine-seance.jpg", key: "proj.1.doc1" },
+        { src: "assets/img/mypikine.jpg", key: "proj.1.doc2" }
+      ] },
     { id: "guides-du-benin", n: 2, img: "assets/img/logo-guides-benin.jpg", logo: true, // logo : affiché en entier, sans recadrage
       docs: [
         { src: "assets/img/guides-unite-aimey.jpg", key: "proj.2.doc2" },
@@ -106,7 +109,9 @@
         { src: "assets/img/guides-echange.jpg", key: "proj.2.doc5" },
         { src: "assets/img/mypikine-seance.jpg", key: "proj.1.doc1" },
         { src: "assets/img/guides-releve.jpg", key: "proj.2.doc1" }
-      ] }
+      ] },
+    // extras : rubriques supplémentaires du panneau, lues dans proj.N.<nom>.h / .p / .list / .note
+    { id: "intrusion-saline", n: 4, extras: ["research", "field", "partner", "join"] }
   ];
   /* C3 - Seuls les identifiants de projets réellement déclarés sont acceptés depuis l'URL */
   var PROJECT_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -119,10 +124,12 @@
     return m ? validProject(m[1]) : null;
   }
   var PUBLICATIONS = [
-    { n: 1, type: "workshop" },
-    { n: 2, type: "publication", link: true }, // lien de l'article à fournir
+    // Du plus récent au plus ancien
+    { n: 5, type: "training" }, // Master GRME, d'après le portail « Eau, climat et mangroves »
+    { n: 4, type: "training" },
     { n: 3, type: "training" },
-    { n: 4, type: "training" }
+    { n: 2, type: "publication", link: true }, // lien de l'article à fournir ; article issu du colloque, donc postérieur à l'atelier
+    { n: 1, type: "workshop" }
   ];
 
   /* ---------- Rendu ---------- */
@@ -159,11 +166,11 @@
           '<h3 id="pt-' + p.id + '" data-i18n="proj.' + p.n + '.t"></h3>' +
           '<span class="rule rule-gold" aria-hidden="true"></span>' +
           '<p class="proj-desc" data-i18n="proj.' + p.n + '.d"></p>' +
-          '<dl class="meta">' +
-            '<div><dt class="mono" data-i18n="proj.role"></dt><dd data-i18n="proj.' + p.n + '.role"></dd></div>' +
-            '<div><dt class="mono" data-i18n="proj.period"></dt><dd data-i18n="proj.' + p.n + '.period"></dd></div>' +
-            '<div><dt class="mono" data-i18n="proj.place"></dt><dd data-i18n="proj.' + p.n + '.place"></dd></div>' +
-          '</dl>' +
+          '<dl class="meta">' + ["role", "period", "place"].filter(function (k) { // seules les infos fournies
+            return C.fr["proj." + p.n + "." + k];
+          }).map(function (k) {
+            return '<div><dt class="mono" data-i18n="proj.' + k + '"></dt><dd data-i18n="proj.' + p.n + '.' + k + '"></dd></div>';
+          }).join("") + '</dl>' +
           '<a class="tlink tlink-light proj-open" href="#projet-' + p.id + '" data-project="' + p.id + '" aria-haspopup="dialog">' +
             '<span data-i18n="proj.read"></span><span class="arr" aria-hidden="true">→</span></a>' +
         '</div></article>';
@@ -365,6 +372,13 @@
   var panelProject = null;
   var opener = null;
 
+  // Texte simple, ou liste à puces si la valeur est un tableau
+  function fillText(el, v) {
+    el.textContent = "";
+    if (Array.isArray(v)) v.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; el.appendChild(li); });
+    else el.textContent = v || "";
+  }
+
   function fillPanel(id) {
     var p = PROJECTS.filter(function (x) { return x.id === id; })[0];
     if (!p) return false;
@@ -377,7 +391,7 @@
     img.hidden = !p.img;
     $(".panel-photo .ph-label", dialog).hidden = !!p.img;
     $(".panel-photo", dialog).classList.toggle("is-logo", !!p.logo);
-    if (p.img) { img.src = p.img; img.alt = d["proj." + p.n + ".alt"] || ""; } else img.removeAttribute("src");
+    if (p.img) { img.src = p.img; img.alt = d["proj." + p.n + ".alt"] || ""; } else { img.removeAttribute("src"); img.alt = ""; }
     // Rubrique « Photos & documents » : galerie si le projet en a, sinon la mention « à fournir »
     var docs = p.docs || [], gal = $(".panel-gallery", dialog);
     $(".panel-docs-tbd", dialog).hidden = docs.length > 0;
@@ -392,10 +406,25 @@
     });
     $$("[data-pk]", dialog).forEach(function (el) {
       var v = d["proj." + p.n + "." + el.getAttribute("data-pk")];
-      if (Array.isArray(v)) {
-        el.textContent = "";
-        v.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; el.appendChild(li); });
-      } else el.textContent = v || "";
+      el.parentNode.hidden = !v; // rubrique ou ligne masquée si le projet ne la renseigne pas
+      fillText(el, v);
+    });
+    // Rubriques supplémentaires propres au projet
+    var extras = $(".panel-extras", dialog);
+    extras.textContent = "";
+    (p.extras || []).forEach(function (x) {
+      var base = "proj." + p.n + "." + x + ".", sec = document.createElement("section");
+      var h = document.createElement("h3");
+      h.className = "mono label"; h.textContent = d[base + "h"] || "";
+      sec.appendChild(h);
+      [["p", "p", ""], ["list", "ul", "panel-list"], ["note", "p", "panel-note"]].forEach(function (f) {
+        if (!d[base + f[0]]) return;
+        var el = document.createElement(f[1]);
+        if (f[2]) el.className = f[2];
+        fillText(el, d[base + f[0]]);
+        sec.appendChild(el);
+      });
+      extras.appendChild(sec);
     });
     return true;
   }

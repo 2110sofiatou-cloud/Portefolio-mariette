@@ -1,6 +1,6 @@
 /*
  * Contenus centralisés FR / EN.
- * Sources : « Profil engagement.pdf » (section Mariette) et « CV MANDJAN à final.pdf ».
+ * Sources : « Profil engagement.pdf » (section Mariette) et « CV MANDJAN à final.pdf ».
  * Convention : toute valeur entre crochets [ ... ] est PROVISOIRE et doit être
  * remplacée par une information fournie et validée par Mariette Mandjan.
  * Aucun chiffre, partenaire ou résultat n'est ajouté au-delà de ces sources.
@@ -67,7 +67,7 @@ window.CONTENT = {
     "tl.8.s": "Je me forme aux négociations climatiques internationales avec l'UNITAR et UN CC:Learn.",
     "tl.9.y": "COP31",
     "tl.9.t": "Négociations sur les Pertes et Préjudices",
-    "tl.9.s": "À Antalya, je suivrai les négociations sur les « Pertes et Préjudices ».",
+    "tl.9.s": "À Antalya, je suivrai les négociations sur les « Pertes et Préjudices ».",
 
     "exp.title": "Ce que <em>j'apporte</em>",
     "exp.lead": "Des compétences que j'ai construites sur le terrain, en classe et en formation.",
@@ -83,7 +83,7 @@ window.CONTENT = {
     "exp.3.d": "Je prépare un Master à l'Institut National de l'Eau et je maîtrise les logiciels QGIS, AutoCAD, AquaCrop et HBV.",
     "exp.3.k1": "QGIS", "exp.3.k2": "AquaCrop", "exp.3.k3": "HBV",
     "exp.4.t": "Négociations climatiques",
-    "exp.4.d": "Formée aux négociations internationales avec l'UNITAR et UN CC:Learn (« Mastering international climate negotiation »), je suivrai les négociations sur les Pertes et Préjudices à la COP31.",
+    "exp.4.d": "Formée aux négociations internationales avec l'UNITAR et UN CC:Learn (« Mastering international climate negotiation »), je suivrai les négociations sur les Pertes et Préjudices à la COP31.",
     "exp.4.k1": "UNITAR", "exp.4.k2": "Pertes et Préjudices", "exp.4.k3": "COP31",
     "exp.5.t": "Vie associative",
     "exp.5.d": "J'assure la gestion administrative et la trésorerie de mon unité, la mise à jour documentaire et le suivi de dossiers de partenariats institutionnels.",
@@ -108,8 +108,10 @@ window.CONTENT = {
     "proj.photo": "Photo authentique à fournir",
     "proj.caption": "Photographie de l'activité à fournir",
     "proj.1.t": "MyPikine HOUSE ONG",
-    "proj.1.alt": "Mains jointes en cercle, poignets ornés de bracelets de perles colorées",
-    "proj.1.caption": "MyPikine HOUSE ONG",
+    "proj.1.alt": "Logo de MyPikine HOUSE ONG, Carrefour de loisirs éducatifs",
+    "proj.1.caption": "Logo de MyPikine HOUSE ONG",
+    "proj.1.doc2.alt": "Mains jointes en cercle, poignets ornés de bracelets de perles colorées",
+    "proj.1.doc2.cap": "Mains jointes en cercle",
     "proj.1.doc1.alt": "Animatrice au tableau lors d'une séance sur les catastrophes naturelles et le changement climatique",
     "proj.1.doc1.cap": "Séance de sensibilisation sur les catastrophes naturelles",
     "proj.1.d": "Actions communautaires et ateliers sur le recyclage et la lutte contre le gaspillage.",
@@ -119,7 +121,7 @@ window.CONTENT = {
     "proj.1.ctx": "Une ONG au sein de laquelle je m'engage depuis 2022, avec des actions communautaires dans les départements de l'Atlantique et du Littoral.",
     "proj.1.mrole": "Bénévole de 2022 à mars 2026, j'ai ensuite rejoint le Conseil d'administration, où j'occupe le secrétariat adjoint et j'assure la gestion administrative.",
     "proj.1.contrib": [
-      "Participation à l'atelier « Non au gaspillage, oui au recyclage », avec la conception et la promotion de sacs biodégradables et de conserves.",
+      "Participation à l'atelier « Non au gaspillage, oui au recyclage », avec la conception et la promotion de sacs biodégradables et de conserves.",
       "Mise à jour documentaire et suivi des dossiers de partenariats institutionnels.",
       "Représentation auprès de la PNOVEJ-ANPE (Plateforme nationale des organisations de volontariat et d'échanges des jeunes).",
       "Gestion administrative depuis mars 2026."
@@ -170,6 +172,36 @@ window.CONTENT = {
       "De novembre à décembre 2025, au Collège catholique Saint-Michel de Cotonou, intégration du programme dans les cours d'Éducation affective, avec remise de badges et pose d'affiches.",
       "Lancement d'une initiative durable au collège, où chaque lundi un groupe d'élèves de 6e diffuse un message sur le climat lors de la montée des couleurs."
     ],
+    /* Projet 4 : textes repris du portail « Eau, climat et mangroves au Bénin » */
+    "proj.4.t": "Eau, climat et mangroves au Bénin",
+    "proj.4.d": "Je travaille sur l'intrusion saline et ses effets sur l'eau potable, les cultures et les mangroves du Bas-Bénin, avec deux objectifs : mieux comprendre le phénomène et agir dès maintenant avec les habitants.",
+    "proj.4.role": "Étudiante en Master II en Gestion des Risques et des Ressources en Eau (GRME)",
+    "proj.4.place": "Bas-Bénin",
+    "proj.4.ctx": "Une démarche née du terrain. J'ai choisi de relier la science et l'action : un travail de recherche rigoureux d'un côté, des initiatives simples et reproductibles de l'autre, conçues avec les femmes, les maraîchers, les piroguiers et les apiculteurs du Bas-Bénin. Mon fil conducteur : que les alertes, les données et les solutions servent d'abord ceux qui subissent les pertes liées au climat.",
+    "proj.4.research.h": "Volet 1, recherche",
+    "proj.4.research.p": "Comprendre la salinité pour mieux alerter. Mon mémoire de Master II vise à fournir des outils fiables d'aide à la décision pour les collectivités, les scientifiques et les bailleurs.",
+    "proj.4.research.list": [
+      "Cartographier le risque : étudier l'avancée de l'eau salée dans les nappes et repérer les zones et les populations les plus exposées.",
+      "Un système d'alerte précoce : prévenir avant que l'eau ne devienne impropre, pour agir à temps sur la santé et les cultures (système appelé SAPI).",
+      "Documenter les pertes : un formulaire mobile (KoboCollect) pour consigner les pertes subies, afin de les rendre visibles auprès des financements climat."
+    ],
+    "proj.4.research.note": "Vous êtes université, laboratoire ou bailleur ? Je recherche un encadrement, des données et des co-financements de recherche.",
+    "proj.4.field.h": "Volet 2, actions de terrain",
+    "proj.4.field.p": "Trois initiatives simples, utiles dès maintenant. Des actions à faible coût, menées avec les habitants et faciles à reproduire d'une commune à l'autre.",
+    "proj.4.field.list": [
+      "Brigades Féminines de Vigilance Eau : des femmes relais surveillent la qualité des puits, filtrent et conservent l'eau douce pendant les pics de salinité. Besoin : kits de filtration, fiches visuelles, extension à d'autres communes.",
+      "Réseau Citoyen RCMP-Salinité : maraîchers et piroguiers signalent la salinité et reçoivent un message WhatsApp clair : « Eau propre » ou « Arrêt des pompages ». Besoin : forfaits data, testeurs de salinité pour les observateurs.",
+      "Miel de mangrove : des ruches en bambou installées dans les palétuviers protègent la mangrove de la coupe de bois et créent un revenu local. Besoin : ruches supplémentaires, combinaisons et matériel apicole."
+    ],
+    "proj.4.partner.h": "Partenaire de mise en œuvre",
+    "proj.4.partner.p": "CLIMATE INVEST, structure d'incubation qui m'accompagne sur la mise en œuvre technique : cadrage, outils numériques, suivi et montage des partenariats.",
+    "proj.4.join.h": "Comment s'associer ?",
+    "proj.4.join.list": [
+      "Universités et laboratoires : encadrement, partage de données, co-publication.",
+      "Mairies et ONG : relais local et reproduction des initiatives dans votre commune.",
+      "Entreprises et bailleurs : financement ciblé de matériel et suivi des résultats."
+    ],
+    "proj.4.join.note": "Dites-moi qui vous êtes et ce qui vous intéresse : la recherche, une action de terrain, ou les deux.",
     "panel.context": "Contexte",
     "panel.role": "Mon rôle",
     "panel.contrib": "Mes actions et contributions",
@@ -188,7 +220,7 @@ window.CONTENT = {
     "res.1.y": "Nov. 2025",
     "res.1.t": "Atelier expérimental autour du jeu déZhistoires®",
     "res.1.m": "Lors du colloque RUFIFESE 2025 de l'AUF, co-conception de séquences pédagogiques avec un outil narratif low-tech sur le climat, en cours de certification OAPI.",
-    "res.2.y": "[Année]",
+    "res.2.y": "Colloque 2025",
     "res.2.t": "Citée dans l'article scientifique issu des travaux RUFIFESE 2025",
     "res.2.m": "Mention nominative aux pages 6 et 7. [Référence complète (titre, auteurs, revue) à fournir.]",
     "res.2.link": "Article [lien à fournir]",
@@ -198,6 +230,9 @@ window.CONTENT = {
     "res.4.y": "Juin 2026",
     "res.4.t": "Mastering international climate negotiation",
     "res.4.m": "Formation proposée par l'UNITAR et UN CC:Learn.",
+    "res.5.y": "En cours",
+    "res.5.t": "Master II en Gestion des Risques et des Ressources en Eau (GRME)",
+    "res.5.m": "Mon mémoire de Master II vise à fournir des outils fiables d'aide à la décision pour les collectivités, les scientifiques et les bailleurs.",
     "res.empty": "Aucune entrée dans cette catégorie.",
 
     "eng.title": "Cap sur <em>la COP31</em>",
@@ -230,7 +265,7 @@ window.CONTENT = {
     "cf.note": "Le bouton ouvre votre messagerie avec un message prêt à être envoyé.",
     "cf.mail.name": "Nom",
     "cf.mail.org": "Organisation",
-    "cf.ok": "Votre messagerie s'est ouverte avec le message prêt : il ne vous reste qu'à cliquer sur « Envoyer ». Si rien ne s'est ouvert, écrivez-moi directement à mariettemandjan40@gmail.com.",
+    "cf.ok": "Votre messagerie s'est ouverte avec le message prêt : il ne vous reste qu'à cliquer sur « Envoyer ». Si rien ne s'est ouvert, écrivez-moi directement à mariettemandjan40@gmail.com.",
     "cf.err.required": "Ce champ est obligatoire.",
     "cf.err.short": "Votre message est un peu court (10 caractères minimum).",
     "cf.err.form": "Certains champs sont à compléter.",
@@ -349,8 +384,10 @@ window.CONTENT = {
     "proj.photo": "Authentic photo to be provided",
     "proj.caption": "Photograph of the activity to be provided",
     "proj.1.t": "MyPikine HOUSE NGO",
-    "proj.1.alt": "Hands joined in a circle, wrists wearing colourful beaded bracelets",
-    "proj.1.caption": "MyPikine HOUSE NGO",
+    "proj.1.alt": "Logo of MyPikine HOUSE NGO, Carrefour de loisirs éducatifs",
+    "proj.1.caption": "Logo of MyPikine HOUSE NGO",
+    "proj.1.doc2.alt": "Hands joined in a circle, wrists wearing colourful beaded bracelets",
+    "proj.1.doc2.cap": "Hands joined in a circle",
     "proj.1.doc1.alt": "Facilitator at the blackboard during a session on natural disasters and climate change",
     "proj.1.doc1.cap": "Awareness session on natural disasters",
     "proj.1.d": "Community action and workshops on recycling and reducing waste.",
@@ -411,6 +448,35 @@ window.CONTENT = {
       "From November to December 2025, at Saint-Michel Catholic Secondary School in Cotonou, integrating the programme into Emotional Education classes, with badges and posters.",
       "Launching a lasting initiative at the school, where every Monday a group of Year 7 pupils shares a climate message at the flag-raising ceremony."
     ],
+    "proj.4.t": "Water, climate and mangroves in Benin",
+    "proj.4.d": "I work on saline intrusion and its effects on drinking water, crops and mangroves in Lower Benin, with two aims: to better understand the phenomenon and to act now with local residents.",
+    "proj.4.role": "Master II student in Risk and Water Resources Management (GRME)",
+    "proj.4.place": "Lower Benin",
+    "proj.4.ctx": "An approach born in the field. I chose to connect science and action: rigorous research on one side, simple and replicable initiatives on the other, designed with the women, market gardeners, canoe operators and beekeepers of Lower Benin. My guiding thread: that alerts, data and solutions first serve those who suffer climate-related losses.",
+    "proj.4.research.h": "Strand 1, research",
+    "proj.4.research.p": "Understanding salinity to give better warnings. My Master II thesis aims to provide reliable decision-support tools for local authorities, scientists and funders.",
+    "proj.4.research.list": [
+      "Mapping the risk: studying how salt water advances into aquifers and identifying the most exposed areas and populations.",
+      "An early warning system: warning before water becomes unfit, so that action can be taken in time for health and crops (a system called SAPI).",
+      "Documenting losses: a mobile form (KoboCollect) to record the losses suffered, so that they become visible to climate finance."
+    ],
+    "proj.4.research.note": "Are you a university, a laboratory or a funder? I am looking for supervision, data and research co-funding.",
+    "proj.4.field.h": "Strand 2, field action",
+    "proj.4.field.p": "Three simple initiatives, useful right now. Low-cost actions, carried out with local residents and easy to replicate from one municipality to another.",
+    "proj.4.field.list": [
+      "Women's Water Vigilance Brigades: women relays monitor well quality, filter and store fresh water during salinity peaks. Needs: filtration kits, visual fact sheets, extension to other municipalities.",
+      "RCMP-Salinity Citizen Network: market gardeners and canoe operators report salinity and receive a clear WhatsApp message: \"Clean water\" or \"Stop pumping\". Needs: data bundles, salinity testers for observers.",
+      "Mangrove honey: bamboo hives placed in the mangrove trees protect the mangrove from wood cutting and create local income. Needs: additional hives, beekeeping suits and equipment."
+    ],
+    "proj.4.partner.h": "Implementation partner",
+    "proj.4.partner.p": "CLIMATE INVEST, an incubation structure that supports me with technical implementation: scoping, digital tools, monitoring and building partnerships.",
+    "proj.4.join.h": "How to get involved?",
+    "proj.4.join.list": [
+      "Universities and laboratories: supervision, data sharing, co-publication.",
+      "Municipalities and NGOs: local relay and replication of the initiatives in your municipality.",
+      "Companies and funders: targeted funding for equipment and monitoring of results."
+    ],
+    "proj.4.join.note": "Tell me who you are and what interests you: research, field action, or both.",
     "panel.context": "Context",
     "panel.role": "My role",
     "panel.contrib": "My actions and contributions",
@@ -429,7 +495,7 @@ window.CONTENT = {
     "res.1.y": "Nov. 2025",
     "res.1.t": "Experimental workshop around the déZhistoires® game",
     "res.1.m": "At the AUF's RUFIFESE 2025 conference, co-designing teaching sequences with a low-tech climate storytelling tool, currently undergoing OAPI certification.",
-    "res.2.y": "[Year]",
+    "res.2.y": "2025 conference",
     "res.2.t": "Cited in the scientific article resulting from the RUFIFESE 2025 work",
     "res.2.m": "Named mention on pages 6 and 7. [Full reference (title, authors, journal) to be provided.]",
     "res.2.link": "Article [link to be provided]",
@@ -439,6 +505,9 @@ window.CONTENT = {
     "res.4.y": "June 2026",
     "res.4.t": "Mastering international climate negotiation",
     "res.4.m": "Course offered by UNITAR and UN CC:Learn.",
+    "res.5.y": "Ongoing",
+    "res.5.t": "Master II in Risk and Water Resources Management (GRME)",
+    "res.5.m": "My Master II thesis aims to provide reliable decision-support tools for local authorities, scientists and funders.",
     "res.empty": "No entries in this category.",
 
     "eng.title": "Heading <em>to COP31</em>",

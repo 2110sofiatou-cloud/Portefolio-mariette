@@ -687,6 +687,11 @@ p.h-in, div.h-in, aside.h-in { display: block; }
 .panel-meta dt { color: var(--gold-dark); padding-top: 3px; }
 .panel-meta dd { margin: 0; font-style: italic; color: #6a716d; }
 .panel-body section h3 { margin-bottom: 8px; }
+.panel-body [hidden] { display: none !important; } /* sinon display:grid/flex l'emporte sur hidden */
+.panel-extras { display: grid; gap: 28px; }
+.panel-extras:empty { display: none; }
+.panel-extras section > p + .panel-list { margin-top: 14px; }
+.panel-note { margin-top: 14px; padding-left: 14px; border-left: 2px solid var(--gold); }
 .panel-list li { display: grid; grid-template-columns: 24px 1fr; padding: 10px 0; border-bottom: 1px solid var(--grey); }
 .panel-list li:first-child { padding-top: 0; }
 .panel-gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); grid-auto-rows: max-content; gap: 16px; }
