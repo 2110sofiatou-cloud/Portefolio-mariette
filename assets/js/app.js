@@ -300,7 +300,7 @@
     clearTimeout(menuTimer); // C1 - une fermeture en cours ne doit pas masquer le menu réouvert
     menu.hidden = false;
     document.body.classList.add("menu-open");
-    document.body.style.overflow = "hidden";
+    document.documentElement.classList.add("scroll-locked");
     menuBtn.setAttribute("aria-expanded", "true");
     $(".sr", menuBtn).textContent = C[lang]["nav.close"];
     void menu.offsetWidth; // applique l'état initial pour conserver le fondu
@@ -312,7 +312,7 @@
     if (menu.hidden || !menu.classList.contains("is-open")) return;
     menu.classList.remove("is-open"); // visibility:hidden + pointer-events:none immédiatement côté interaction
     document.body.classList.remove("menu-open");
-    document.body.style.overflow = "";
+    document.documentElement.classList.remove("scroll-locked");
     menuBtn.setAttribute("aria-expanded", "false");
     $(".sr", menuBtn).textContent = C[lang]["nav.menu"];
     clearTimeout(menuTimer);
@@ -449,6 +449,7 @@
     $(".panel-body").scrollTop = 0;
     dialog.showModal();
     document.body.classList.add("panel-open");
+    document.documentElement.classList.add("scroll-locked");
     requestAnimationFrame(function () {
       requestAnimationFrame(function () { dialog.classList.add("is-open"); });
     });
@@ -465,6 +466,8 @@
       dialog.classList.remove("is-closing");
       dialog.close();
       document.body.classList.remove("panel-open");
+
+      document.documentElement.classList.remove("scroll-locked");
       panelProject = null;
       closing = false;
       var back = opener || $('[data-project]');
@@ -496,12 +499,18 @@
       if (!closing && history.state && history.state.panel) history.back();
       dialog.classList.remove("is-open", "is-closing");
       document.body.classList.remove("panel-open");
+
+      document.documentElement.classList.remove("scroll-locked");
       panelProject = null;
       closing = false;
       var back = opener || $('[data-project]');
       if (back) back.focus({ preventScroll: true });
     });
     dialog.addEventListener("cancel", function (e) { e.preventDefault(); requestClose(); }); // Échap
+    // Molette sur la barre du haut ou sur le fond : fait défiler le contenu du panneau
+    dialog.addEventListener("wheel", function (e) {
+      if (!e.target.closest(".panel-body")) $(".panel-body").scrollTop += e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
+    }, { passive: true });
     dialog.addEventListener("click", function (e) { if (e.target === dialog) requestClose(); }); // voile
     window.addEventListener("popstate", function () {
       var id = hashProject();
@@ -509,9 +518,15 @@
       else if (!id && dialog.open) finishClose();
       else if (!id) closing = false;
     });
+    // Actualisation de la page : le panneau reste fermé, sur la section des projets
+    var navEntry = performance.getEntriesByType("navigation")[0];
+    var reloaded = !!navEntry && navEntry.type === "reload";
     // Lien partagé #projet-xxx : ouverture directe (identifiant validé)
     var id = hashProject();
-    if (id) {
+    if (id && reloaded) {
+      history.replaceState(null, "", location.pathname + location.search + "#projets");
+      var projects = $("#projets"); if (projects) projects.scrollIntoView();
+    } else if (id) {
       opener = $('[data-project="' + id + '"]');
       history.replaceState(null, "", "#projets");
       history.pushState({ panel: id }, "", "#projet-" + id);

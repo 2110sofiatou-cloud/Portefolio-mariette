@@ -280,7 +280,7 @@ body.menu-open .brand, body.menu-open .lang button { color: var(--ivory); }
   grid-template-columns: var(--grid);
   align-items: start;
 }
-.hero-text { grid-column: 1 / span 7; grid-row: 1 / span 2; padding-top: clamp(8px, 3vw, 48px); }
+.hero-text { grid-column: 1 / span 7; grid-row: 1; align-self: center; }
 .eyebrow { color: var(--graphite); margin-bottom: clamp(20px, 3vw, 36px); }
 .hero-name {
   font-size: var(--fs-display); line-height: .98; letter-spacing: -.025em;
@@ -294,15 +294,19 @@ body.menu-open .brand, body.menu-open .lang button { color: var(--ivory); }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; margin-top: clamp(32px, 4vw, 48px); }
 
 .hero-portrait { grid-column: 9 / span 4; grid-row: 1; margin: 0; position: relative; }
+.hero-portrait .ph-portrait { aspect-ratio: 2 / 3; }
+.hero-portrait .ph-portrait img { object-position: 50% 50%; }
 .hero-portrait::before {
-  content: ""; position: absolute; top: 12%; bottom: -12%; left: -20px; width: 1px; background: var(--gold);
+  content: ""; position: absolute; top: 12%; bottom: 0; left: -20px; width: 1px; background: var(--gold);
 }
 .ph-portrait { position: relative; overflow: hidden; aspect-ratio: 4 / 5; width: 100%; background: var(--grey); }
 .ph-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 .cap { margin-top: 12px; color: var(--gold-dark); }
 
-.hero-axes { grid-column: 9 / span 4; grid-row: 2; border-top: 1px solid var(--grey); padding-top: 20px; }
-.hero-axes ol { display: grid; gap: 10px; }
+/* Domaines d'expertise : bandeau sous le texte et la photo, aligné sur la grille */
+.hero-grid > .hero-axes { grid-column: 1 / -1; grid-row: 2; display: grid; grid-template-columns: var(--grid); gap: 16px var(--gutter); align-items: baseline; border-top: 1px solid var(--grey); padding-top: 24px; }
+.hero-axes .label { grid-column: 1 / span 3; margin: 0; }
+.hero-axes ol { grid-column: 4 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px var(--gutter); }
 .hero-axes li { display: grid; grid-template-columns: 36px 1fr; font-size: var(--fs-small); color: var(--graphite); }
 .hero-axes li .mono { color: var(--gold-dark); text-transform: none; }
 
@@ -725,7 +729,8 @@ p.h-in, div.h-in, aside.h-in { display: block; }
 .panel-gallery a:hover img { transform: scale(1.03); }
 .panel-gallery figcaption { font-size: .8125rem; line-height: 1.5; color: var(--ink-soft); }
 .panel-list li::before { content: "•"; color: var(--gold-dark); }
-body.panel-open { overflow: hidden; }
+/* Sur html : le overflow-x: clip de html empêche overflow: hidden sur body de bloquer la page */
+html.scroll-locked { overflow: hidden; scrollbar-gutter: stable; }
 
 /* ---------- Language switch fade ---------- */
 [data-i18n], [data-i18n-html] { transition: opacity 150ms var(--ease); }
@@ -742,7 +747,7 @@ html.lang-switching [data-i18n], html.lang-switching [data-i18n-html] { opacity:
 
   .hero-text { grid-column: 1 / span 7; }
   .hero-portrait { grid-column: 8 / span 5; }
-  .hero-axes { grid-column: 8 / span 5; }
+  .hero-axes .label, .hero-axes ol { grid-column: 1 / -1; }
 
   /* Parcours : bandeau vert puis chronologie ; l'écran et le connecteur sont masqués */
   .journey { background: var(--ivory); padding-top: 0; }
@@ -793,12 +798,17 @@ html.lang-switching [data-i18n], html.lang-switching [data-i18n-html] { opacity:
   .hero { padding-top: calc(var(--header) + 28px); }
   .hero-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 16px; }
   /* Accueil centré sur téléphone */
-  .hero-portrait { grid-column: 1 / -1; grid-row: 1; justify-self: center; width: min(75%, 320px); }
+  .hero-portrait { grid-column: 1 / -1; grid-row: 1; justify-self: center; width: min(100%, 480px); }
+  /* Photo recadrée sur le niveau et le buste : le bouton principal reste visible */
+  .hero-portrait .ph-portrait { aspect-ratio: 5 / 4; }
+  .hero-portrait .ph-portrait img { object-position: 50% 8%; }
   .hero-portrait::before { display: none; }
   .hero-text { grid-column: 1 / -1; grid-row: 2; padding-top: 0; text-align: center; }
   .h-rule { margin-inline: auto; transform-origin: 50% 50%; }
   .hero-intro { margin-inline: auto; }
-  .hero-axes { grid-column: 1 / -1; grid-row: 3; text-align: center; }
+  .hero-grid > .hero-axes { grid-row: 3; display: block; text-align: center; }
+  .hero-axes .label { margin-bottom: 20px; }
+  .hero-axes ol { grid-template-columns: minmax(0, 1fr); }
   .hero-axes li { display: block; }
   .hero-axes li .mono { margin-right: 8px; }
   .hero-name .line:nth-child(2) { padding-left: 0; }
