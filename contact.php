@@ -17,9 +17,11 @@ $CONFIG = [
 ];
 
 $SUBJECTS = [
-    'atelier' => "Atelier d'éducation environnementale",
-    'outils'  => 'Outils pédagogiques',
-    'cop31'   => 'Pertes et Préjudices et COP31',
+    'pedagogie'  => 'Pédagogie innovante et éducation environnementale',
+    'eau'        => "Ingénierie rurale et maîtrise de l'eau",
+    'pertes'     => 'Négociations sur les Pertes et Préjudices',
+    'plan'       => 'Plan post COP',
+    'associatif' => 'Vie associative',
     'autre'   => 'Autre demande',
 ];
 

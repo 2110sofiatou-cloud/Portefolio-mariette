@@ -41,7 +41,10 @@
 
 /* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+/* Android (Chrome, Samsung Internet) : overflow-x sur body seul ne suffit pas ; sans ce verrou sur html,
+   un élément qui déborde élargit la page et le navigateur dézoome tout le site */
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; overflow-x: hidden; }
+@supports (overflow: clip) { html { overflow-x: clip; } } /* clip ne casse pas position: sticky */
 body {
   margin: 0;
   background: var(--ivory);
@@ -337,7 +340,7 @@ p.h-in, div.h-in, aside.h-in { display: block; }
 .js .reveal.is-in { opacity: 1; transform: none; }
 
 /* ---------- 02 PARCOURS : vert | écran | chronologie ---------- */
-.journey { background: linear-gradient(90deg, var(--green) 50%, var(--ivory) 50%); overflow-x: clip; } /* l'entrée des étapes (translateX) ne doit pas élargir la page */
+.journey { background: linear-gradient(90deg, var(--green) 50%, var(--ivory) 50%); overflow-x: hidden; overflow-x: clip; } /* hidden : repli pour les anciens navigateurs Android sans « clip » */ /* l'entrée des étapes (translateX) ne doit pas élargir la page */
 .jr-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .jr-grid { position: relative; display: grid; grid-template-columns: var(--grid); gap: 0 var(--gutter); align-items: start; }
 
@@ -460,10 +463,15 @@ p.h-in, div.h-in, aside.h-in { display: block; }
 .idx-status { grid-column: 2; color: var(--gold-dark); }
 
 /* Compétences : logiciels, langues, savoir-être */
-.skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px var(--gutter); margin-top: clamp(56px, 6vw, 88px); }
-.skill-list { border-top: 1px solid var(--grey); }
-.skill-list li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--grey); color: var(--green); font-size: var(--fs-small); }
-.skill-list .muted { font-size: .875rem; }
+.skills { margin-top: clamp(56px, 6vw, 88px); }
+.skills > div { display: grid; grid-template-columns: var(--grid); gap: 16px var(--gutter); align-items: baseline; padding: clamp(24px, 2.6vw, 36px) 0; border-bottom: 1px solid rgba(69,79,73,.2); }
+.skills .label { grid-column: 1 / span 3; margin: 0; }
+.skill-list { grid-column: 4 / -1; color: var(--green); font-size: var(--fs-small); }
+.skill-list .muted { display: block; font-size: .875rem; }
+.skill-list-tools { display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 3vw, 40px); }
+.skill-list-tools li:last-child { flex-basis: 100%; }
+.skill-list-lang { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px var(--gutter); }
+.skill-list-soft { display: grid; gap: 12px; max-width: 76ch; }
 @keyframes panelIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* ---------- 04 PROJETS ---------- */
@@ -661,7 +669,7 @@ p.h-in, div.h-in, aside.h-in { display: block; }
 .sig-soon-note { color: var(--ink-soft); font-size: .75rem; }
 .sig-meta { display: flex; align-items: center; gap: 18px; padding-top: 10px; border-top: 1px solid rgba(69,79,73,.2); font-size: .875rem; }
 .sig-legal { font-size: .75rem; line-height: 1.5; color: var(--ink-soft); }
-.ft-skills { margin-top: clamp(48px, 5vw, 72px); padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid rgba(69,79,73,.2); }
+.ft-skills { margin-top: clamp(48px, 5vw, 72px); margin-bottom: clamp(72px, 7vw, 112px); border-top: 1px solid rgba(69,79,73,.2); }
 
 /* ---------- Project panel (native dialog) ---------- */
 .panel {
@@ -766,6 +774,8 @@ html.lang-switching [data-i18n], html.lang-switching [data-i18n-html] { opacity:
 }
 
 @media (min-width: 761px) and (max-width: 1080px) {
+  .skills .label { grid-column: 1 / span 4; }
+  .skill-list { grid-column: 5 / -1; }
   .sec-head-split { grid-template-columns: 1fr auto; align-items: end; }
 }
 @media (min-width: 1081px) {
@@ -782,15 +792,20 @@ html.lang-switching [data-i18n], html.lang-switching [data-i18n-html] { opacity:
 
   .hero { padding-top: calc(var(--header) + 28px); }
   .hero-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 16px; }
-  .hero-portrait { grid-column: 2 / span 3; grid-row: 1; }
-  .hero-portrait::before { left: -14px; top: 18%; bottom: 8%; }
-  .hero-text { grid-column: 1 / -1; grid-row: 2; padding-top: 0; }
-  .hero-axes { grid-column: 1 / -1; grid-row: 3; }
+  /* Accueil centré sur téléphone */
+  .hero-portrait { grid-column: 1 / -1; grid-row: 1; justify-self: center; width: min(75%, 320px); }
+  .hero-portrait::before { display: none; }
+  .hero-text { grid-column: 1 / -1; grid-row: 2; padding-top: 0; text-align: center; }
+  .h-rule { margin-inline: auto; transform-origin: 50% 50%; }
+  .hero-intro { margin-inline: auto; }
+  .hero-axes { grid-column: 1 / -1; grid-row: 3; text-align: center; }
+  .hero-axes li { display: block; }
+  .hero-axes li .mono { margin-right: 8px; }
   .hero-name .line:nth-child(2) { padding-left: 0; }
   .hero-actions { flex-direction: column; align-items: stretch; gap: 12px; }
   .hero-actions .btn { justify-content: space-between; }
-  .hero-actions .tlink { align-self: flex-start; }
-  .hero-foot { margin-top: 40px; }
+  .hero-actions .tlink { align-self: center; }
+  .hero-foot { flex-direction: column; gap: 4px; margin-top: 40px; text-align: center; }
 
   /* minmax(0, 1fr) : la barre de filtres (nowrap) ne doit pas élargir la colonne au-delà de l'écran */
   .jr-grid, .research-grid, .collab-grid, .proj { grid-template-columns: minmax(0, 1fr); }
@@ -806,7 +821,8 @@ html.lang-switching [data-i18n], html.lang-switching [data-i18n-html] { opacity:
   .idx-panel { grid-template-columns: 40px 1fr; }
   .idx-panel p, .idx-kw, .idx-status { grid-column: 2; }
   .idx-btn:hover .idx-title { transform: none; }
-  .skills { grid-template-columns: minmax(0, 1fr); }
+  .skills > div { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .skills .label, .skill-list { grid-column: 1; }
 
   .proj-text, .proj:nth-child(even) .proj-text { grid-column: 1; }
   .proj-frame { aspect-ratio: 4 / 3; }
@@ -843,7 +859,6 @@ html.lang-switching [data-i18n], html.lang-switching [data-i18n-html] { opacity:
 
 @media (max-width: 380px) {
   .lang button { min-width: 28px; padding-inline: 2px; }
-  .hero-portrait { grid-column: 1 / span 3; }
 }
 
 /* =========================================================

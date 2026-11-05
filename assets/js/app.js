@@ -87,23 +87,26 @@
   var PROJECTS = [
     { id: "mypikine", n: 1, img: "assets/img/logo-mypikine.png", logo: true, photo: "assets/img/mypikine-terrain.jpg", // photo : image principale de la fiche, le logo passe en médaillon // img : photo authentique (sinon emplacement « à fournir »)
       docs: [ // docs : rubrique « Photos & documents » du panneau
-        { src: "assets/img/mypikine-seance.jpg", key: "proj.1.doc1" },
-        { src: "assets/img/mypikine.jpg", key: "proj.1.doc2" }
+        { src: "assets/img/mypikine5.jpeg", key: "proj.1.doc3" },
+        { src: "assets/img/mypikine1.jpeg", key: "proj.1.doc4" },
+        { src: "assets/img/mypikine2.jpeg", key: "proj.1.doc5" },
+        { src: "assets/img/mypikine3.jpeg", key: "proj.1.doc6" },
+        { src: "assets/img/mypikine4.jpeg", key: "proj.1.doc7" }
       ] },
     { id: "guides-du-benin", n: 2, img: "assets/img/logo-guides-benin.jpg", logo: true, // logo : affiché en entier, sans recadrage
-      photo: "assets/img/guides-terrain.jpg", photoKey: "proj.2.doc1", photoPos: "50% 0%", // même scène que la photo doc1 : mêmes textes
+      photo: "assets/img/guides-classe.jpg", photoKey: "proj.2.doc7", photoPos: "50% 40%",
       include: 3, // programme TEPP (textes proj.3.*) présenté dans la fiche et le panneau des Guides
       docs: [
-        { src: "assets/img/guides-unite-aimey.jpg", key: "proj.2.doc2" },
-        { src: "assets/img/guides-seance.jpg", key: "proj.2.doc3" },
-        { src: "assets/img/guides-bibliotheque.jpg", key: "proj.2.doc4" },
-        { src: "assets/img/guides-echange.jpg", key: "proj.2.doc5" },
-        { src: "assets/img/guides-releve.jpg", key: "proj.2.doc1" },
-        { src: "assets/img/tepp.jpg", key: "proj.3" },
-        { src: "assets/img/tepp-wtd-groupe.jpg", key: "proj.3.doc1" },
-        { src: "assets/img/tepp-wtd-selfie1.jpg", key: "proj.3.doc2" },
-        { src: "assets/img/tepp-wtd-selfie2.jpg", key: "proj.3.doc3" },
-        { src: "assets/img/tepp-groupe-aimey.jpg", key: "proj.3.doc4" }
+        { src: "assets/img/Ass_ben_1.jpeg", key: "proj.2.doc5" },
+        { src: "assets/img/Ass_ben_2.jpeg", key: "proj.3.doc4" },
+        { src: "assets/img/Ass_ben_3.jpeg", key: "proj.2.doc2" },
+        { src: "assets/img/Ass_ben_4.jpeg", key: "proj.3.doc1" },
+        { src: "assets/img/Ass_ben_5.jpeg", key: "proj.2.doc3" },
+        { src: "assets/img/Ass_ben_6.jpeg", key: "proj.3.doc3" },
+        { src: "assets/img/Ass_ben_7.jpeg", key: "proj.2.doc6" },
+        { src: "assets/img/Ass_ben_8.jpeg", key: "proj.2.doc4" },
+        { src: "assets/img/Ass_ben_9.jpeg", key: "proj.1.doc2" },
+        { src: "assets/img/tepp.jpg", key: "proj.3" }
       ] }
   ];
   /* C3 - Seuls les identifiants de projets réellement déclarés sont acceptés depuis l'URL */
