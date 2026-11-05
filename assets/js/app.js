@@ -42,15 +42,15 @@
       c.parentNode.insertBefore(caret, c.nextSibling); // le curseur suit la dernière lettre
       k++;
       if (k >= chars.length) { // fin : le curseur clignote encore puis s'efface
-        setTimeout(function () { caret.classList.add("is-done"); h1.classList.remove("is-typing"); }, 2400);
+        setTimeout(function () { caret.classList.add("is-done"); h1.classList.remove("is-typing"); }, 1200);
         return;
       }
       var newLine = chars[k].parentNode !== c.parentNode;
-      setTimeout(type, newLine ? 450 : 85 + Math.random() * 90); // rythme de frappe légèrement irrégulier
+      setTimeout(type, newLine ? 220 : 40 + Math.random() * 40); // rythme de frappe rapide et légèrement irrégulier
     }
     function start() {
       chars[0].parentNode.insertBefore(caret, chars[0]);
-      setTimeout(type, 500);
+      setTimeout(type, 200);
     }
     // On écrit une fois l'écran de chargement disparu
     var root = document.documentElement;
@@ -83,35 +83,28 @@
   if (!C.en) C.en = C.fr;
 
   /* ---------- Données de structure (contenus = clés i18n) ---------- */
-  var EXPERTISE = [1, 2, 3, 4, 5];
+  var EXPERTISE = [1, 2, 3];
   var PROJECTS = [
-    { id: "mypikine", n: 1, img: "assets/img/logo-mypikine.png", logo: true, // img : photo authentique (sinon emplacement « à fournir »)
+    { id: "mypikine", n: 1, img: "assets/img/logo-mypikine.png", logo: true, photo: "assets/img/mypikine-terrain.jpg", // photo : image principale de la fiche, le logo passe en médaillon // img : photo authentique (sinon emplacement « à fournir »)
       docs: [ // docs : rubrique « Photos & documents » du panneau
         { src: "assets/img/mypikine-seance.jpg", key: "proj.1.doc1" },
         { src: "assets/img/mypikine.jpg", key: "proj.1.doc2" }
       ] },
     { id: "guides-du-benin", n: 2, img: "assets/img/logo-guides-benin.jpg", logo: true, // logo : affiché en entier, sans recadrage
+      photo: "assets/img/guides-terrain.jpg", photoKey: "proj.2.doc1", photoPos: "50% 0%", // même scène que la photo doc1 : mêmes textes
+      include: 3, // programme TEPP (textes proj.3.*) présenté dans la fiche et le panneau des Guides
       docs: [
         { src: "assets/img/guides-unite-aimey.jpg", key: "proj.2.doc2" },
         { src: "assets/img/guides-seance.jpg", key: "proj.2.doc3" },
         { src: "assets/img/guides-bibliotheque.jpg", key: "proj.2.doc4" },
         { src: "assets/img/guides-echange.jpg", key: "proj.2.doc5" },
-        { src: "assets/img/guides-releve.jpg", key: "proj.2.doc1" }
-      ] },
-    { id: "tepp", n: 3, img: "assets/img/tepp.jpg",
-      docs: [ // photos déjà utilisées ailleurs : même fichier et mêmes textes
+        { src: "assets/img/guides-releve.jpg", key: "proj.2.doc1" },
+        { src: "assets/img/tepp.jpg", key: "proj.3" },
         { src: "assets/img/tepp-wtd-groupe.jpg", key: "proj.3.doc1" },
         { src: "assets/img/tepp-wtd-selfie1.jpg", key: "proj.3.doc2" },
         { src: "assets/img/tepp-wtd-selfie2.jpg", key: "proj.3.doc3" },
-        { src: "assets/img/tepp-groupe-aimey.jpg", key: "proj.3.doc4" },
-        { src: "assets/img/guides-unite-aimey.jpg", key: "proj.2.doc2" },
-        { src: "assets/img/guides-seance.jpg", key: "proj.2.doc3" },
-        { src: "assets/img/guides-echange.jpg", key: "proj.2.doc5" },
-        { src: "assets/img/mypikine-seance.jpg", key: "proj.1.doc1" },
-        { src: "assets/img/guides-releve.jpg", key: "proj.2.doc1" }
-      ] },
-    // extras : rubriques supplémentaires du panneau, lues dans proj.N.<nom>.h / .p / .list / .note
-    { id: "intrusion-saline", n: 4, extras: ["research", "field", "partner", "join"] }
+        { src: "assets/img/tepp-groupe-aimey.jpg", key: "proj.3.doc4" }
+      ] }
   ];
   /* C3 - Seuls les identifiants de projets réellement déclarés sont acceptés depuis l'URL */
   var PROJECT_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -137,14 +130,9 @@
     var ul = $(".index");
     ul.innerHTML = EXPERTISE.map(function (n) {
       var num = ("0" + n).slice(-2);
-      return '<li class="idx-item reveal">' +
-        '<h3 style="font:inherit;margin:0"><button class="idx-btn" type="button" aria-expanded="false" aria-controls="idx-p' + n + '" id="idx-b' + n + '">' +
+      return '<li class="idx-item reveal"><div class="idx-row">' +
         '<span class="idx-num mono">' + num + '</span>' +
-        '<span class="idx-title" data-i18n="exp.' + n + '.t"></span>' +
-        '<span class="idx-sign" aria-hidden="true"></span></button></h3>' +
-        '<div class="idx-panel" id="idx-p' + n + '" role="region" aria-labelledby="idx-b' + n + '" hidden>' +
-        '<p data-i18n="exp.' + n + '.d"></p>' +
-        '<div class="idx-kw mono"><span data-i18n="exp.' + n + '.k1"></span><span data-i18n="exp.' + n + '.k2"></span><span data-i18n="exp.' + n + '.k3"></span></div>' +
+        '<h3 class="idx-title" data-i18n="exp.' + n + '.t"></h3>' +
         '</div></li>';
     }).join("");
   }
@@ -156,21 +144,20 @@
       var num = ("0" + p.n).slice(-2);
       return '<article class="proj" id="p-' + p.id + '" aria-labelledby="pt-' + p.id + '">' +
         '<figure class="proj-media">' +
-          '<div class="proj-frame' + (p.logo ? ' is-logo' : '') + '">' + (p.img
+          '<div class="proj-frame' + (p.logo && !p.photo ? ' is-logo' : '') + '">' + (p.photo
+            ? '<img src="' + p.photo + '" alt="" data-i18n-alt="' + (p.photoKey || 'proj.' + p.n + '.photo') + '.alt" loading="lazy"' + (p.photoPos ? ' style="object-position:' + p.photoPos + '"' : '') + '>' +
+              '<span class="proj-badge"><img src="' + p.img + '" alt="" data-i18n-alt="proj.' + p.n + '.alt" loading="lazy"></span>'
+            : p.img
             ? '<img src="' + p.img + '" alt="" data-i18n-alt="proj.' + p.n + '.alt" loading="lazy">'
             : '<div class="ph" role="img" data-i18n-aria="proj.photo"><span class="ph-label mono" data-i18n="proj.photo"></span></div>') + '</div>' +
-          '<figcaption class="mono cap" data-i18n="' + (p.img ? 'proj.' + p.n + '.caption' : 'proj.caption') + '"></figcaption>' +
+          '<figcaption class="mono cap" data-i18n="' + (p.photo ? (p.photoKey ? p.photoKey + '.cap' : 'proj.' + p.n + '.photo.caption') : p.img ? 'proj.' + p.n + '.caption' : 'proj.caption') + '"></figcaption>' +
         '</figure>' +
         '<div class="proj-text reveal">' +
           '<span class="proj-count" aria-hidden="true">' + num + '<small>/ ' + total + '</small></span>' +
           '<h3 id="pt-' + p.id + '" data-i18n="proj.' + p.n + '.t"></h3>' +
           '<span class="rule rule-gold" aria-hidden="true"></span>' +
           '<p class="proj-desc" data-i18n="proj.' + p.n + '.d"></p>' +
-          '<dl class="meta">' + ["role", "period", "place"].filter(function (k) { // seules les infos fournies
-            return C.fr["proj." + p.n + "." + k];
-          }).map(function (k) {
-            return '<div><dt class="mono" data-i18n="proj.' + k + '"></dt><dd data-i18n="proj.' + p.n + '.' + k + '"></dd></div>';
-          }).join("") + '</dl>' +
+          (p.include ? '<p class="proj-also"><span class="mono" data-i18n="proj.include"></span><span data-i18n="proj.' + p.include + '.t"></span></p>' : '') +
           '<a class="tlink tlink-light proj-open" href="#projet-' + p.id + '" data-project="' + p.id + '" aria-haspopup="dialog">' +
             '<span data-i18n="proj.read"></span><span class="arr" aria-hidden="true">→</span></a>' +
         '</div></article>';
@@ -178,6 +165,7 @@
   }
 
   function renderPublications() {
+    if (!$(".biblio")) return;
     $(".biblio").innerHTML = PUBLICATIONS.map(function (p) {
       return '<li class="bib reveal" data-type="' + p.type + '">' +
         '<span class="bib-year mono" data-i18n="res.' + p.n + '.y"></span>' +
@@ -191,15 +179,22 @@
   /* ---------- Bilinguisme ---------- */
   var lang = "fr";
 
+  /* Typographie : un mot d'une lettre (à, À, a, y, I) ne reste jamais seul en fin de ligne.
+     Seule l'espace qui le suit devient insécable à l'affichage ; les textes de content.js ne changent pas.
+     « > » couvre le mot placé juste après une balise <em> dans les titres. */
+  function typo(t) {
+    return typeof t === "string" ? t.replace(/(^|[\s(«>])([AaÀàYyI])\s/g, "$1$2 ").replace(/ ([:;!?»])/g, " $1") : t;
+  }
+
   function applyLang(next) {
     var dict = C[next] || C.fr;
     $$("[data-i18n]").forEach(function (el) {
       var v = dict[el.getAttribute("data-i18n")];
-      if (v != null) el.textContent = v;
+      if (v != null) el.textContent = typo(v);
     });
     $$("[data-i18n-html]").forEach(function (el) {
       var v = dict[el.getAttribute("data-i18n-html")];
-      if (v != null) el.innerHTML = v; // contenu interne et maîtrisé (balises <em> uniquement)
+      if (v != null) el.innerHTML = typo(v); // contenu interne et maîtrisé (balises <em> uniquement)
     });
     $$("[data-i18n-aria]").forEach(function (el) {
       var v = dict[el.getAttribute("data-i18n-aria")];
@@ -261,7 +256,7 @@
   /* ---------- Section active ---------- */
   function initActive() {
     var links = $$('.nav a, .mobile-menu a');
-    var ids = ["hero", "profil", "expertise", "projets", "publications", "engagements", "collaborer", "contact"];
+    var ids = ["hero", "profil", "expertise", "projets", "collaborer", "contact"];
     if (!("IntersectionObserver" in window)) return; // J1 - indicateur facultatif : la navigation reste fonctionnelle
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -375,8 +370,8 @@
   // Texte simple, ou liste à puces si la valeur est un tableau
   function fillText(el, v) {
     el.textContent = "";
-    if (Array.isArray(v)) v.forEach(function (t) { var li = document.createElement("li"); li.textContent = t; el.appendChild(li); });
-    else el.textContent = v || "";
+    if (Array.isArray(v)) v.forEach(function (t) { var li = document.createElement("li"); li.textContent = typo(t); el.appendChild(li); });
+    else el.textContent = typo(v || "");
   }
 
   function fillPanel(id) {
@@ -401,7 +396,7 @@
           im = document.createElement("img"), cap = document.createElement("figcaption");
       a.href = doc.src; a.target = "_blank"; a.rel = "noopener"; // ouvre la photo en grand
       im.src = doc.src; im.alt = d[doc.key + ".alt"] || ""; im.loading = "lazy";
-      cap.textContent = d[doc.key + ".cap"] || "";
+      cap.textContent = d[doc.key + ".cap"] || d[doc.key + ".caption"] || "";
       a.appendChild(im); fig.appendChild(a); fig.appendChild(cap); gal.appendChild(fig);
     });
     $$("[data-pk]", dialog).forEach(function (el) {
@@ -412,6 +407,21 @@
     // Rubriques supplémentaires propres au projet
     var extras = $(".panel-extras", dialog);
     extras.textContent = "";
+    if (p.include) {
+      var inc = "proj." + p.include + ".", isec = document.createElement("section");
+      isec.className = "panel-include";
+      var ih = document.createElement("h3");
+      ih.textContent = d[inc + "t"] || "";
+      isec.appendChild(ih);
+      [["d", "p", ""], ["ctx", "p", ""], ["mrole", "p", ""], ["contrib", "ul", "panel-list"]].forEach(function (f) {
+        if (!d[inc + f[0]]) return;
+        var el = document.createElement(f[1]);
+        if (f[2]) el.className = f[2];
+        fillText(el, d[inc + f[0]]);
+        isec.appendChild(el);
+      });
+      extras.appendChild(isec);
+    }
     (p.extras || []).forEach(function (x) {
       var base = "proj." + p.n + "." + x + ".", sec = document.createElement("section");
       var h = document.createElement("h3");
